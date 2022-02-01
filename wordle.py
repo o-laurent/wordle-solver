@@ -1,19 +1,31 @@
 import copy
 
+
 class Wordle:
-    def __init__(self, filename, verbose: bool = True):
+    def __init__(self, filename: str, verbose: bool = True):
+        """
+        Standard constructor for the Wordle class.
+
+        Args:
+            filename (str): The name of the file containing the dictionary.
+            verbose (bool, optional): Log if True. Defaults to True.
+        """
         self.hard_constraints = ['']*5
         self.soft_constraints = []
         self.negative_constraints = []
         self.filename = filename
 
-        self.dict = self.load(self.filename, verbose)
+        self.load(verbose)
         self.data = copy.deepcopy(self.dict)
 
+    def get_data(self):
+        return self.data
+
     def reset(self):
-        self.data = self.load()
-        
-    def load(self, verbose=True):
+        """ Reset the plausible words. """
+        self.data = self.dict
+
+    def load(self, verbose: bool = True):
         """
         Loads the dictionary in self.dict
 
@@ -43,7 +55,7 @@ class Wordle:
                 if verbose:
                     print("Mots restants:", len(self.data))
 
-    def apply_soft_constraints(self, verbose=True):
+    def apply_soft_constraints(self, verbose: bool = True):
         for constraint in self.soft_constraints:
             print(constraint)
             if constraint in self.hard_constraints:
@@ -57,10 +69,11 @@ class Wordle:
                 if verbose:
                     print("Mots restants:", len(self.data))
 
-    def apply_negative_constraints(self, verbose=True):
+    def apply_negative_constraints(self, verbose: bool = True):
         for constraint in self.negative_constraints:
             print(constraint)
             if constraint != '':
-                self.data = [word for word in self.data if not word.count(constraint)]
+                self.data = [
+                    word for word in self.data if not word.count(constraint)]
                 if verbose:
                     print("Mots restants:", len(self.data))
