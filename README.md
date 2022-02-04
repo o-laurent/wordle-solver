@@ -1,9 +1,14 @@
 # Wordle Solver
 
-Download a dictionnary in the langage that you wish...
+This solver is a program to help you play and win at Wordle.
 
-Put it in a data folder
+## How to use the software
+Create a folder called data with the command `mkdir data`.
 
-Apply preprocessing on the file
+Download a dictionnaries in the languages which you are interested in. For instance:
+- for English: `wget https://raw.githubusercontent.com/dwyl/english-words/master/words.txt -O english_dict` from dwyl
+- for French: `wget https://raw.githubusercontent.com/hbenbel/French-Dictionary/master/dictionary/dictionary.txt -O french_dict`
 
-Use the repository
+Apply preprocessing on the file with the command `python3 preprocessing.py data/your_dict.txt`
+
+Use the repository with a python notebook for instance.
