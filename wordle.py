@@ -10,8 +10,8 @@ class Wordle:
             filename (str): The name of the file containing the dictionary.
             verbose (bool, optional): Log if True. Defaults to True.
         """
-        self.hard_constraints = ['']*5
-        self.soft_constraints = []
+        self.hard_constraints = [""]*5
+        self.soft_constraints = [""]*5
         self.negative_constraints = []
         self.filename = filename
 
@@ -40,8 +40,8 @@ class Wordle:
     def add_hard_constraint(self, constraint: str, index: int):
         self.hard_constraints[index] = constraint
 
-    def add_soft_constraint(self, constraint: str):
-        self.soft_constraints.append(constraint)
+    def add_soft_constraint(self, constraint: str, index: int):
+        self.soft_constraints[index] = constraint
 
     def add_negative_constraint(self, constraint: str):
         self.negative_constraints.append(constraint)
@@ -56,8 +56,9 @@ class Wordle:
                     print("Mots restants:", len(self.data))
 
     def apply_soft_constraints(self, verbose: bool = True):
-        for constraint in self.soft_constraints:
+        for ind, constraint in enumerate(self.soft_constraints):
             print(constraint)
+            self.data = [word for word in self.data if word [ind] != constraint]
             if constraint in self.hard_constraints:
                 self.data = [
                     word for word in self.data if word.count(constraint) >= 2]
@@ -76,4 +77,4 @@ class Wordle:
                 self.data = [
                     word for word in self.data if not word.count(constraint)]
                 if verbose:
-                    print("Mots restants:", len(self.data))
+                    print("Mots restants:", len(self.data)) 
