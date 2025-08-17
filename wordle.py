@@ -35,16 +35,19 @@ class Wordle:
             else:
                 self.add_negative_constraint(word[i])
 
-    def optimize(self):
-        if len(self.data) > 500:
-            dictionnary = self.dict[::10]
-            data = self.data[::5]
-        if len(self.data) > 200:
-            dictionnary = self.dict[::5]
-            data = self.data[::5]
+    def optimize(self, inside: bool = True):
+        data = self.data
+        if not inside:
+            if len(self.data) > 500:
+                dictionnary = self.dict[::100]
+            elif len(self.data) > 300:
+                dictionnary = self.dict[::25]
+            elif len(self.data) > 150:
+                dictionnary = self.dict[::10]
+            else:
+                dictionnary = self.dict
         else:
-            dictionnary = self.dict
-            data = self.data
+            dictionnary = self.data
         values = [[] for word in dictionnary]
         cWordle = Wordle(self.filename)
         for j, target in enumerate(data):
